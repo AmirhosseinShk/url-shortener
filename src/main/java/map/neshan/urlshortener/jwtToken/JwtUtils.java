@@ -17,5 +17,14 @@ public interface JwtUtils {
      * @param token
      * @return String Username
      */
-    String getUsernameFromToken(String token);
+    String getUsernameFromToken(String token) throws NotValidTokenException;
+
+    /**
+     * This Exception will thrown if JWT token is not valid to parse or expired or token's type mismatch.
+     */
+    class NotValidTokenException extends Exception {
+        public NotValidTokenException(Exception ex) {
+            super(ex);
+        }
+    }
 }

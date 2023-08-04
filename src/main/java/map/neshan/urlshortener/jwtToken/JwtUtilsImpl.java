@@ -1,5 +1,7 @@
 package map.neshan.urlshortener.jwtToken;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwt;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -54,8 +56,17 @@ public class JwtUtilsImpl implements JwtUtils {
     }
 
     @Override
-    public String getUsernameFromToken(String token) {
-        return null;
+    public String getUsernameFromToken(String token) throws NotValidTokenException {
+        try {
+            Jwt jws = Jwts.parserBuilder()
+                    .setSigningKey(getAccessTokenSecretKey())
+                    .build()
+                    .parse(token);
+            Claims body = (Claims) jws.getBody();
+            return body.getSubject();
+        } catch (Exception ex) {
+            throw new NotValidTokenException(ex);
+        }
     }
 
     private Date getExpTimeForAccessToken() {

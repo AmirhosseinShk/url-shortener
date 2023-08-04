@@ -1,37 +1,36 @@
 package map.neshan.urlshortener.restApi;
 
-import org.springframework.core.io.Resource;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 public interface UrlShortenerApi {
     /**
-     * @param url      the original url
-     * @param username the username of the user who wants to shorten the url
+     * @param url   the original url
+     * @param token the token of the user who wants to shorten the url
      * @return short url
      */
     @ResponseBody
-    ResponseEntity<Resource> shortenUrl(String url, String username);
+    ResponseEntity<String> shortenUrl(String url, String token);
 
     /**
      * @param shortUrl the shortened url
-     * @return original url
+     * @param response
      */
-    @ResponseBody
-    ResponseEntity<Resource> getOriginalUrl(String shortUrl);
+    void getOriginalUrl(String shortUrl, HttpServletResponse response);
 
     /**
-     * @param url      the shortened url
-     * @param username the username of the user who wants to remove the url
+     * @param url   the shortened url
+     * @param token the token of the user who wants to remove the url
      * @return true if the url was removed successfully
      */
     @ResponseBody
-    ResponseEntity<Resource> removeUserUrl(String url, String username);
+    ResponseEntity<String> removeUserUrl(String url, String token);
 
     /**
      * @param shortUrl the shortened url
      * @return the number of visits of the url
      */
     @ResponseBody
-    ResponseEntity<Resource> getUrlVisit(String shortUrl);
+    ResponseEntity<String> getUrlVisit(String shortUrl);
 }

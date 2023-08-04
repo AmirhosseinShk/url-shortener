@@ -2,31 +2,27 @@ package map.neshan.urlshortener.restApi;
 
 import lombok.extern.slf4j.Slf4j;
 import map.neshan.urlshortener.jwtToken.JwtUtilsImpl;
-import map.neshan.urlshortener.service.AuthenticationService;
-import org.springframework.core.io.Resource;
+import map.neshan.urlshortener.service.AuthenticationServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @Slf4j
 public class AuthenticationControllerApi implements AuthenticationApi {
 
-    private final AuthenticationService authenticationService;
+    private final AuthenticationServiceImpl authenticationService;
     private final JwtUtilsImpl jwtUtils;
 
-    AuthenticationControllerApi(AuthenticationService authenticationService, JwtUtilsImpl jwtUtils) {
+    AuthenticationControllerApi(AuthenticationServiceImpl authenticationService, JwtUtilsImpl jwtUtils) {
         this.authenticationService = authenticationService;
         this.jwtUtils = jwtUtils;
     }
 
     @Override
-    @GetMapping("/login/{username}/{password}")
-    public @ResponseBody ResponseEntity<String> login(@PathVariable(name = "username") String username,
-                                                      @PathVariable(name = "password") String password) {
+    @GetMapping("/login")
+    public @ResponseBody ResponseEntity<String> login(@RequestParam(name = "username") String username,
+                                                      @RequestParam(name = "password") String password) {
         boolean auth = authenticationService.authenticate(username, password);
         if (auth) {
             return ResponseEntity.ok()
@@ -37,9 +33,9 @@ public class AuthenticationControllerApi implements AuthenticationApi {
     }
 
     @Override
-    @GetMapping("/register/{username}/{password}")
-    public @ResponseBody ResponseEntity<String> register(@PathVariable(name = "username") String username,
-                                                         @PathVariable(name = "password") String password) {
+    @GetMapping("/register")
+    public @ResponseBody ResponseEntity<String> register(@RequestParam(name = "username") String username,
+                                                         @RequestParam(name = "password") String password) {
         boolean register = authenticationService.register(username, password);
         if (register) {
             return ResponseEntity.ok().body("User registered successfully");
