@@ -1,6 +1,6 @@
 package map.neshan.urlshortener.database;
 
-public class postgresSQL implements Connector{
+public class postgresSQL implements Connector {
     @Override
     public boolean addUserUrl(String url, String shortUrl, String username) {
         return false;
@@ -22,7 +22,7 @@ public class postgresSQL implements Connector{
     }
 
     @Override
-    public long getAllUrlsVisits(String shortUrl) {
+    public long geUrlVisit(String shortUrl) {
         return 0;
     }
 }
