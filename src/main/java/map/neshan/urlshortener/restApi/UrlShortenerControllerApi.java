@@ -9,7 +9,6 @@ import map.neshan.urlshortener.service.UrlShortenerServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 @RestController
 @Slf4j
@@ -25,10 +24,12 @@ public class UrlShortenerControllerApi implements UrlShortenerApi {
 
     @Override
     @GetMapping("/shortenUrl")
-    public @ResponseBody ResponseEntity<String> shortenUrl(@RequestParam(value = "url") String url, @RequestParam(value = "token") String token) {
+    public @ResponseBody ResponseEntity<String> shortenUrl(@RequestParam(value = "url") String url,
+                                                           @RequestParam(value = "token") String token) {
         try {
             String username = jwtUtils.getUsernameFromToken(token);
-            String shortUrl = urlShortenerService.shortenUrl(url, username);
+            String baseShortUrl = getBaseUrl(url);
+            String shortUrl = urlShortenerService.shortenUrl(baseShortUrl, username);
             return ResponseEntity.ok().body("ShortenUrl Successfully : " + shortUrl);
         } catch (JwtUtils.NotValidTokenException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("token not valid");

@@ -60,7 +60,7 @@ public class UrlShortenerServiceImpl implements UrlShortenerService {
         //when shortenUrl Trigger we check urls for remove
         checkExpiredUrlsThenRemoveAll();
 
-        UrlStatus urlStatus = urlShortenerRepo.findUrlsStatusByShortUrl(shortUrl);
+        UrlStatus urlStatus = urlShortenerRepo.findUrlStatusByShortUrl(shortUrl);
         if (urlStatus == null) {
             throw new UrlNotFoundException("Url not found");
         } else {
@@ -71,10 +71,10 @@ public class UrlShortenerServiceImpl implements UrlShortenerService {
     }
 
     @Override
+    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRES_NEW)
     public boolean removeUserUrl(String url, String username) {
         //when shortenUrl Trigger we check urls for remove
         checkExpiredUrlsThenRemoveAll();
-
         try {
             urlShortenerRepo.deleteUrlStatusByUrlAndUsername(url, username);
             return true;
@@ -85,7 +85,7 @@ public class UrlShortenerServiceImpl implements UrlShortenerService {
 
     @Override
     public long getUrlVisit(String shortUrl) throws UrlNotFoundException {
-        UrlStatus urlStatus = urlShortenerRepo.findUrlsStatusByShortUrl(shortUrl);
+        UrlStatus urlStatus = urlShortenerRepo.findUrlStatusByShortUrl(shortUrl);
         if (urlStatus == null) {
             throw new UrlNotFoundException("Url not found");
         } else {

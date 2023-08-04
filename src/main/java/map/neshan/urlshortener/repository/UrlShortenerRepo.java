@@ -9,7 +9,7 @@ import java.util.List;
 @Repository
 public interface UrlShortenerRepo extends JpaRepository<UrlStatus, Integer> {
 
-    UrlStatus findUrlsStatusByShortUrl(String shortUrl);
+    UrlStatus findUrlStatusByShortUrl(String shortUrl);
 
     void deleteUrlStatusByUrlAndUsername(String url, String username);
 

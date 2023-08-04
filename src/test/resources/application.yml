@@ -1,0 +1,17 @@
+spring:
+  jwt:
+    access-token-generator-key: AsrPJuIto3knbdL8WbddQSAS4ohJMCjigDzsxEmgv9O=
+    access-token-expiration-time: 10000
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+server:
+  http2.enabled: true
+  port: 8443
+  error.whitelabel.enabled: false
+  ssl.enabled: false
+
+cors:
+  allow.origin: '*'
