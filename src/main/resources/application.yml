@@ -1,9 +1,21 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/shopme
+    url: jdbc:postgresql://localhost:5432/UrlShortener
     username: postgres
-    password: password
+    password: admin
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
+  jwt:
+    access-token-generator-key: WtnPJuIon2kjilL8WbddFAFX4ohJMCjigQggaEypa5E=
+    access-token-expiration-time: 900000
+
+server:
+  http2.enabled: true
+  port: 8443
+  error.whitelabel.enabled: false
+  ssl.enabled: false
+
+cors:
+  allow.origin: '*'

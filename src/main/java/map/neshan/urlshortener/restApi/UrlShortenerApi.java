@@ -4,7 +4,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-public interface urlShortenerApi {
+public interface UrlShortenerApi {
     /**
      * @param url      the original url
      * @param username the username of the user who wants to shorten the url

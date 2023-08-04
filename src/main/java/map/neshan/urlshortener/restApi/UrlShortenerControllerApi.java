@@ -10,22 +10,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @Slf4j
-public class urlShortenerControllerApi implements urlShortenerApi {
-    /**
-     * @param url      the original url
-     * @param username the username of the user who wants to shorten the url
-     * @return short url
-     */
+public class UrlShortenerControllerApi implements UrlShortenerApi {
     @Override
     @GetMapping("/shorten/{url}/{username})")
     public @ResponseBody ResponseEntity<Resource> shortenUrl(@PathVariable(value = "url") String url, @PathVariable(value = "username") String username) {
         return null;
     }
 
-    /**
-     * @param shortUrl the shortened url
-     * @return original url
-     */
     @Override
     public @ResponseBody ResponseEntity<Resource> getOriginalUrl(String shortUrl) {
         return null;

@@ -4,20 +4,20 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-public interface authenticationApi {
+public interface AuthenticationApi {
     /**
-     * @param username
-     * @param password
+     * @param username the username of the user
+     * @param password the password of the user
      * @return jwt token if the user was logged in successfully
      */
     @ResponseBody
-    ResponseEntity<Resource> login(String username, String password);
+    ResponseEntity<String> login(String username, String password);
 
     /**
-     * @param username
-     * @param password
+     * @param username the username of the user
+     * @param password the password of the user
      * @return true if the user was registered successfully
      */
     @ResponseBody
-    ResponseEntity<Resource> register(String username, String password);
+    ResponseEntity<String> register(String username, String password);
 }
